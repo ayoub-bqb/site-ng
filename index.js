@@ -150,85 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startHeroAutoPlay();
 
 
-    // --- 4. La Carte — Magazine Layout ---
-    const menuItems = [
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(5).jpeg',  alt: 'Canapé Saumon Fumé',        badge: 'Prestige',      category: 'savory',   diet: 'Poisson',       price: '•••',  title: 'Saumon Fumé & Crème d\'Aneth',            desc: 'Sur blinis croustillant, perles de Yuzu et pointe d\'aneth fraîche pour une explosion marine en bouche.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(1).jpeg',  alt: 'Bouchées Micro-pousses',   badge: 'Signature',     category: 'savory',   diet: 'Végétarien',    price: '•••',  title: 'Bouchées d\'Amuse-Bouche & Micro-pousses', desc: 'Petites bouchées délicates aux saveurs d\'herbes aromatiques fraîches et fleurs comestibles.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.44%20(3).jpeg',  alt: 'Mini Brioches Canard',     badge: 'Chaud',         category: 'savory',   diet: 'Volaille',      price: '••••', title: 'Mini Brioches de Canard & Truffe',         desc: 'Mini sliders briochés moelleux garnis d\'effiloché de canard confit et de crème infusée à la truffe.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.44%20(1).jpeg',  alt: 'Roulés Fromage de Chèvre', badge: 'Nouveau',       category: 'savory',   diet: 'Végétarien',    price: '••',   title: 'Roulés au Fromage de Chèvre & Herbes',     desc: 'Petits wraps raffinés fourrés d\'un fromage frais de chèvre onctueux et parfumés à la ciboulette fraîche.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(11).jpeg', alt: 'Tartelettes Framboises',   badge: 'Frais',         category: 'sweet',    diet: 'Fruitier',      price: '•••',  title: 'Tartelettes aux Framboises & Myrtilles',   desc: 'Pâte sucrée craquante, crème diplomate à la vanille de Madagascar et fruits des bois frais.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(2).jpeg',  alt: 'Macarons Parisiens',       badge: 'Incontournable',category: 'sweet',    diet: 'Sans Gluten',   price: '•••',  title: 'Macarons Parisiens Assortis',              desc: 'Ganaches intenses (chocolat noir, pistache, vanille, framboise) sous des coques ultra-moelleuses.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(4).jpeg',  alt: 'Dômes Chocolat',           badge: 'Premium',       category: 'sweet',    diet: 'Chocolat',      price: '••••', title: 'Dômes Chocolat Intense & Feuille d\'Or',   desc: 'Mousse au chocolat noir 72%, insert coulant framboise et croustillant praliné, sublimé à la feuille d\'or.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(9).jpeg',  alt: 'Entremets Baies',          badge: 'Création',      category: 'sweet',    diet: 'Fruité',        price: '•••',  title: 'Entremets Carrés & Mousse aux Baies',      desc: 'Fines couches de génoise, mousse aux fruits rouges légère et glaçage miroir brillant raffiné.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(3).jpeg',  alt: 'Cornes de Gazelle',        badge: 'Beldi',         category: 'heritage', diet: 'Amandes',       price: '•••',  title: 'Gâteaux d\'Amandes & Cornes de Gazelle',   desc: 'Pâte d\'amandes raffinée parfumée à la fleur d\'oranger artisanale de Fès, enrobée d\'une fine pâte dorée.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.44%20(8).jpeg',  alt: 'Briouates aux Amandes',    badge: 'Tradition',     category: 'heritage', diet: 'Amandes & Miel',price: '•••',  title: 'Briouates Croustillantes aux Amandes',     desc: 'Feuilles de pastilla ultra-fines, garnies d\'amandes grillées et trempées dans un miel d\'oranger pur.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.43%20(10).jpeg', alt: 'Station Cocktail Fleurie', badge: 'Scénographie',  category: 'buffet',   diet: 'Buffet',        price: '••••', title: 'Station Cocktail Fleurie & Salée',         desc: 'Buffet cocktail dînatoire sophistiqué mis en scène avec des structures végétales et florales spectaculaires.' },
-        { src: 'WhatsApp%20Image%202026-06-29%20at%2016.27.44%20(4).jpeg',  alt: 'Pyramide de Macarons',     badge: 'Impérial',      category: 'buffet',   diet: 'Buffet Sucré',  price: '••••', title: 'Pyramide Royale & Table de Macarons',      desc: 'Présentation spectaculaire en tour de macarons multicolores pour embellir le buffet des desserts.' },
-    ];
-
-    const menuFeaturedCard   = document.getElementById('menu-featured-card');
-    const menuSidebarCards   = document.getElementById('menu-sidebar-cards');
-    const menuFeaturedImg    = document.getElementById('menu-featured-img');
-    const menuFeaturedBadge  = document.getElementById('menu-featured-badge');
-    const menuFeaturedDiet   = document.getElementById('menu-featured-diet');
-    const menuFeaturedTitle  = document.getElementById('menu-featured-title');
-    const menuFeaturedDesc   = document.getElementById('menu-featured-desc');
-    const menuFeaturedPrice  = document.getElementById('menu-featured-price');
-
-    const renderMagazine = (filter) => {
-        const list = filter === 'all' ? menuItems : menuItems.filter(i => i.category === filter);
-        if (!list.length) return;
-
-        // Fade out
-        menuFeaturedCard.style.opacity = '0';
-        menuSidebarCards.style.opacity = '0';
-
-        setTimeout(() => {
-            // Update featured
-            const f = list[0];
-            menuFeaturedImg.src   = f.src;
-            menuFeaturedImg.alt   = f.alt;
-            menuFeaturedBadge.textContent = f.badge;
-            menuFeaturedDiet.textContent  = f.diet;
-            menuFeaturedTitle.textContent = f.title;
-            menuFeaturedDesc.textContent  = f.desc;
-            menuFeaturedPrice.textContent = f.price;
-
-            // Update sidebar (next 3 items)
-            menuSidebarCards.innerHTML = list.slice(1, 4).map(item => `
-                <div class="menu-side-card">
-                    <div class="menu-side-image">
-                        <img src="${item.src}" alt="${item.alt}" loading="lazy">
-                        <span class="menu-badge">${item.badge}</span>
-                    </div>
-                    <div class="menu-side-body">
-                        <span class="menu-diet-small">${item.diet}</span>
-                        <h4 class="menu-side-title">${item.title}</h4>
-                        <p class="menu-side-desc">${item.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            // Fade in
-            menuFeaturedCard.style.opacity = '1';
-            menuSidebarCards.style.opacity = '1';
-        }, 250);
-    };
-
-    const menuTabs = document.querySelectorAll('.menu-tab-btn');
-    menuTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            menuTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            renderMagazine(tab.getAttribute('data-filter'));
-        });
-    });
-
-    renderMagazine('all');
-
-
-    // --- 5. Full Lightbox Photo Gallery Viewer ---
+    // --- 4. Full Lightbox Photo Gallery Viewer ---
     const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -419,8 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             bookingForm.reset();
             successMsg.style.display = 'none';
-            // Recalculate default values for the calculator
-            runCalculations();
         }, 5000);
     });
 });
